@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">parking</string>
+    <string name="login_title">Welcome back</string>
+    <string name="login_subtitle">Sign in to continue to your account</string>
+    <string name="login_address_text_field">Email Address</string>
+    <string name="login_password_field">Passsword</string>
+    <string name="remember_me_text">Remember me</string>
+    <string name="forgot_password_text">Forgot Password?</string>
+    <string name="sign_in_text">Sign In</string>
+    <string name="footer_text">Don´t have an account?</string>
+    <string name="create_account_text">Create Account</string>
+    <string name="password_field_text">Password</string>
+    <string name="register_title">Crear cuenta</string>
+    <string name="register_subtitle">Completa los campos para registrarte</string>
+    <string name="Register_email_placeholder">tu@correo.com</string>
+    <string name="title_register_mail_title">Correo Electronico</string>
+    <string name="register_confirm_mail_title">Confirmar Correo Electronico</string>
+    <string name="Register_password_title">Contraseña</string>
+    <string name="email_number_checkç">Al menos un número</string>
+    <string name="email_capnoncap_check">Al menos una mayuscula y minuscla</string>
+    <string name="mail_8_characters_check">Mínimo 8 caracteres</string>
+    <string name="create_account_button">Crear Cuenta</string>
+    <string name="name_register_title">Introduce tu nombre</string>
+    <string name="register_dialog_boton">Continuar a Inicio de sesion</string>
+    <string name="neopark_title">NeoPark</string>
+</resources>
