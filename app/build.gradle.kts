@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.hilt.library)
     alias(libs.plugins.ksp.library)
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 android {
@@ -29,6 +30,12 @@ android {
             )
         }
     }
+    testOptions{
+        unitTests.all {
+            it.useJUnitPlatform()
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -40,7 +47,10 @@ android {
         compose = true
     }
 }
-
+secrets {
+    propertiesFileName = "secrets.properties"
+    defaultPropertiesFileName = "local.defaults.properties"
+}
 dependencies {
 
     implementation(libs.androidx.core.ktx)
@@ -73,6 +83,11 @@ dependencies {
     //Coil compose
     implementation(libs.coil.compose)
 
+    //google maps compose
+    implementation(libs.maps.compose)
+
+    //kotest
+    testImplementation(libs.kotest.runner.junit5)
 
     implementation(project(":core"))
 }

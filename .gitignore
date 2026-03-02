@@ -1,17 +1,28 @@
-*.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
+# --- Secretos y Configuración Local ---
 local.properties
 secrets.properties
 /secrets.properties
+.env
+*.jks
+*.keystore
+
+# --- Archivos de Android Studio / IntelliJ ---
+.gradle/
+.idea/
+*.iml
+build/
+capture/
+/out
+
+# --- Archivos del Sistema Operativo ---
+.DS_Store
+Thumbs.db
+
+# --- Archivos de Log y Temporales ---
+*.log
+.externalNativeBuild/
+.cxx/
+.navigation/
+
+# --- Pruebas de dispositivos ---
+captures/

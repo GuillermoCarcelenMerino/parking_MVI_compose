@@ -1,5 +1,6 @@
 package com.neo.parking.feature.parking.ui
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -27,6 +28,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -40,6 +45,12 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
+import com.google.android.gms.maps.model.CameraPosition
+import com.google.android.gms.maps.model.LatLng
+import com.google.maps.android.compose.GoogleMap
+import com.google.maps.android.compose.Marker
+import com.google.maps.android.compose.MarkerState
+import com.google.maps.android.compose.rememberCameraPositionState
 import com.neo.core.domain.model.ParkingResponse
 import com.neo.parking.R
 import com.neo.parking.feature.parking.vm.ParkingViewModel
@@ -60,6 +71,7 @@ fun ParkingsScrenRoute(
 
 @Composable
 fun ParkingScreen(parkings: List<ParkingResponse>) {
+    var showParkingList by remember { mutableStateOf(true) }
     Scaffold(
         topBar = {
             topBar()
@@ -104,7 +116,7 @@ fun ParkingScreen(parkings: List<ParkingResponse>) {
 
                 IconButton(
                     {
-                        //todo cambiar view
+                        showParkingList = true
                     },
 
                     modifier = Modifier
@@ -122,7 +134,7 @@ fun ParkingScreen(parkings: List<ParkingResponse>) {
 
                 IconButton(
                     {
-                        //todo cambiar view
+                        showParkingList = false
                     },
                     modifier = Modifier
                         .weight(1f)
@@ -138,13 +150,38 @@ fun ParkingScreen(parkings: List<ParkingResponse>) {
                 }
             }
             Spacer(Modifier.height(20.dp))
-            ParkingBody(parkings)
+            if (showParkingList) {
+                ParkingBodyList(parkings)
+            } else {
+                ParkingBodyMap(parkings)
+            }
         }
     }
 }
 
+@SuppressLint("UnrememberedMutableState")
 @Composable
-fun ParkingBody(parkings: List<ParkingResponse>) {
+fun ParkingBodyMap(
+    parkings: List<ParkingResponse>
+) {
+    val singapore = LatLng(1.35, 103.87)
+    val cameraPositionState = rememberCameraPositionState {
+        position = CameraPosition.fromLatLngZoom(singapore, 10f)
+    }
+    GoogleMap(
+        modifier = Modifier.fillMaxSize(),
+        cameraPositionState = cameraPositionState
+    ) {
+        Marker(
+            state = MarkerState(position = singapore),
+            title = "Singapore",
+            snippet = "Marker in Singapore"
+        )
+    }
+}
+
+@Composable
+fun ParkingBodyList(parkings: List<ParkingResponse>) {
     if (parkings.isEmpty()) {
     } else {
         LazyColumn {
@@ -156,7 +193,8 @@ fun ParkingBody(parkings: List<ParkingResponse>) {
 
                     Row(
                         Modifier
-                            .fillMaxWidth().padding(end = 12.dp),
+                            .fillMaxWidth()
+                            .padding(end = 12.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
 
@@ -248,6 +286,24 @@ fun topBar() {
 fun ParkingScreenPreview() {
 
     ParkingScreen(
+        listOf(
+            ParkingResponse(
+                2,
+                "Parking Leganes",
+                "",
+                "Calle de Leganes 3",
+                true,
+                0.0,
+                0.0
+            )
+        )
+    )
+}
+@Composable
+@Preview(showBackground = true)
+fun ParkingBodyMapPreview() {
+
+    ParkingBodyMap(
         listOf(
             ParkingResponse(
                 2,

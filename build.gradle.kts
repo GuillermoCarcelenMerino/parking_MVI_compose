@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.android.library) apply false
     alias (libs.plugins.hilt.library) apply false
     alias(libs.plugins.ksp.library) apply false
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin") version "2.0.1" apply false
 
 
 }
